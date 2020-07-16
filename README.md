@@ -1,9 +1,10 @@
-# Easy Email - Quick start.
+# [Easy Email](https://www.unrealengine.com/marketplace/en-US/product/easy-email) - Quick start.
 |Table of content|
 |:---:|
 |[Before you start](#before-you-start)|
 |[Blueprint Example](#blueprint-example)|
-|[C++ Example](#markdown-header-c-example)|
+|[C++ Example](#c-example)|
+|[Support](#support)|
 # Before you start
 ## Configuration
 Easy Email allows you to connect to an SMTP server to send emails. You must use the server corresponding to the email address you want to use to send the email.
@@ -44,12 +45,18 @@ LogEasyEmail=VeryVerbose
 ```
 
 ### Passwords
-If the SMTP server requires authentication, you should not send password without using an encrypted connection (SSL/TLS or StartTLS). 
+If the SMTP server requires authentication, you should not send passwords without using an encrypted connection (SSL/TLS or StartTLS). 
 | :information_source: |  Passwords aren't printed to logs. |
 |:--|:--|
 
+### Attachments
+If you add an attachment as a file to an email, the file  is only loaded outside of the game thread just before sending the email  and is then cached within the email. If you let the MIME-Type of the attachment empty, Easy Email will try to match the file's extension with its default MIME-Type and use `application/octet-stream` if none is found or the extension is unknown.
+
 # Blueprint Example
 ## Send an email with a Gmail account
+
+
+
 # C++ Example
 ## Send an email with a Gmail account
 #### MyClass.h
@@ -61,7 +68,7 @@ If the SMTP server requires authentication, you should not send password without
 #include "MyClass.generated.h"
 
 UCLASS()
-class UMyClass
+class UMyClass : public UObject
 {
 	GENERATED_BODY()
 public:
@@ -99,8 +106,8 @@ void UMyClass::SendEmail()
 	Email->SetServerType    (ESmtpServerType    ::ESMTP);
 	
 	// Username is by default your account's email address
-	// Note that storing your password in plain text is not a good idea
-	// and is used here as an example.
+	// Note that storing your password in plain text is generally 
+	// not a good idea and is used here as an example.
 	Email->SetCredentials(TEXT("MyUsername"), TEXT("MyPassword"));
 
 	// Email targets
@@ -126,3 +133,6 @@ void UMyClass::SendEmail()
 	Email->Send();
 }
 ```
+
+# Support
+If you need help, have a feature request or experience troubles, please contact us at [pandores.marketplace@gmail.com](mailto:pandores.marketplace+EasyEmail@gmail.com?subject=Easy%20Email%20-%20).
