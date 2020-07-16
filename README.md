@@ -2,13 +2,13 @@
 |Table of content|
 |:---:|
 |[Before you start](#before-you-start)|
-|[Blueprint Examples](#blueprint-examples)|
-|[C++ Examples](#markdown-header-c-examples)|
+|[Blueprint Example](#blueprint-example)|
+|[C++ Example](#markdown-header-c-example)|
 # Before you start
 ## Configuration
 Easy Email allows you to connect to an SMTP server to send emails. You must use the server corresponding to the email address you want to use to send the email.
 Here is a list of common SMTP servers:
-|Mail extension|Server Type|Server Address|Security|Port|Requires Authentification|
+|Mail extension|Server Type|Server Address|Security|Port|Requires Authentication|
 |:---|:---:|---|---:|---:|:---:|
 |@gmail.com|ESMTP|smtp.gmail.com|SSL/TLS|465|Yes|
 |@gmail.com|ESMTP|smtp.gmail.com|StartTLS|587|Yes|
@@ -20,7 +20,7 @@ Here is a list of common SMTP servers:
 | :information_source: |  Gmail supports both SSL/TLS and StartTLS. You can just pick one of the two. |
 |:--|:--|
 
-| :exclamation: | Some SMTP server requires you to enable less secure apps to successfully connect.  |
+| :warning: | Some SMTP server requires you to enable less secure apps to successfully connect.  |
 |:--|:--|
 
 ## C++
@@ -35,9 +35,91 @@ Easy Email has two files to include.
 The functions are the same for Blueprints and C++. C++ however doesn't have the helper nodes that are Blueprints only.
 
 ## Additional notes
+### Additional logging
+If you want additional logs, you have to enable `Verbose` and/or `VeryVerbose` logs.
+To do so, open `MyGame/Config/DefaultEngine.ini` and add the following:
+```ini
+[Core.Log]
+LogEasyEmail=VeryVerbose
+```
 
+### Passwords
+If the SMTP server requires authentication, you should not send password without using an encrypted connection (SSL/TLS or StartTLS). 
+| :information_source: |  Passwords aren't printed to logs. |
+|:--|:--|
 
-
-# Blueprint Examples
+# Blueprint Example
 ## Send an email with a Gmail account
-# C++ Examples
+# C++ Example
+## Send an email with a Gmail account
+#### MyClass.h
+```cpp
+#pragma once
+
+#include "Email.h"
+#include "CoreMinimal.h"
+#include "MyClass.generated.h"
+
+UCLASS()
+class UMyClass
+{
+	GENERATED_BODY()
+public:
+	void SendEmail();
+
+	UFUNCTION() 
+	void OnEmailError(const int32 ErrorCode) 
+	{
+		// If the email failed to send, additional Error / Warning are available
+		// in the output log.
+		UE_LOG(LogTemp, Error, TEXT("Failed to send email. Code: %d.", ErrorCode);
+	}
+	UFUNCTION() 
+	void OnEmailSent()
+	{
+		UE_LOG(LogTemp, Log, TEXT("Email sent");
+	}
+};
+```
+#### MyClass.cpp
+```cpp
+#include "MyClass.h"
+
+void UMyClass::SendEmail()
+{
+	UEmail* const Email = UEmail::CreateEmail();
+
+	// Server config
+	Email->SetServerAddress	(TEXT("smtp.gmail.com"));
+	Email->SetServerPort	(465);
+	Email->SetConnectionType(ESmtpConnectionType::SSL);
+	Email->SetServerType	(ESmtpServerType    ::ESMTP);
+	
+	// Username is by default your account's email address
+	// Note that storing your password in plain text is not a good idea
+	// and is used here as an example.
+	Email->SetCredentials(TEXT("MyUsername"), TEXT("MyPassword"));
+
+	// Email targets
+	Email->SetSender		 (TEXT("myemail@gmail.com"));
+	Email->AddReceiver	     (TEXT("target@gmail.com"));
+	Email->AddBlindCopyCarbon(TEXT("bcc@gmail.com"));
+	Email->AddCopyCarbon	 (TEXT("cc@gmail.com"));
+
+	// Email content
+	Email->SetSubject       (TEXT("Hello From Unreal"));
+	Email->SetContent       (TEXT("Hello there, this is the Easy Email Plugin."));
+	Email->SetContentCharset(EEmailCharset::utf_8);
+
+	// Attachments
+	Email->AddFileAsAttachment(TEXT("MyLogo.png"),   TEXT("C:/Users/Me/Logo.png"));										// Auto-detect MIME-Type
+	Email->AddFileAsAttachment(TEXT("MyRawData.bin"),TEXT("C:/Users/Me/binary.bin"), TEXT("application/octet-stream")); // Explicit MIME-Type
+
+	// Callbacks
+	Email->OnEmailError.AddDynamic(this, &UMyClass::OnEmailError);
+	Email->OnEmailSent .AddDynamic(this, &UMyClass::OnEmailSent);
+
+	// Finally send the email
+	Email->Send();
+}
+```
