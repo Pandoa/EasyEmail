@@ -79,7 +79,7 @@ public:
     {
         // If the email failed to send, additional Error / Warning are available
         // in the output log.
-        UE_LOG(LogTemp, Error, TEXT("Failed to send email. Code: %d.", ErrorCode);
+        UE_LOG(LogTemp, Error, TEXT("Failed to send email. Code: %d."), ErrorCode);
     }
     UFUNCTION()
     void OnEmailSent()
