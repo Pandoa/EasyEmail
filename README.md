@@ -100,10 +100,10 @@ void UMyClass::SendEmail()
     Email = UEmail::CreateEmail();
     
     // Server config
-    Email->SetServerAddress(TEXT("smtp.gmail.com"));
-    Email->SetServerPort(465);
+    Email->SetServerAddress (TEXT("smtp.gmail.com"));
+    Email->SetServerPort    (465);
     Email->SetConnectionType(ESmtpConnectionType::SSL);
-    Email->SetServerType(ESmtpServerType::ESMTP);
+    Email->SetServerType    (ESmtpServerType::ESMTP);
     
     // Username is by default your account's email address
     // Note that storing your password in plain text is generally 
@@ -111,23 +111,23 @@ void UMyClass::SendEmail()
     Email->SetCredentials(TEXT("MyUsername"), TEXT("MyPassword"));
     
     // Email targets
-    Email->SetSender(TEXT("myemail@gmail.com"));
-    Email->AddReceiver(TEXT("target@gmail.com"));
+    Email->SetSender         (TEXT("myemail@gmail.com"));
+    Email->AddReceiver       (TEXT("target@gmail.com"));
     Email->AddBlindCopyCarbon(TEXT("bcc@gmail.com"));
-    Email->AddCopyCarbon(TEXT("cc@gmail.com"));
+    Email->AddCopyCarbon     (TEXT("cc@gmail.com"));
     
     // Email content
-    Email->SetSubject(TEXT("Hello From Unreal"));
-    Email->SetContent(TEXT("Hello there, this is the Easy Email Plugin."));
+    Email->SetSubject       (TEXT("Hello From Unreal"));
+    Email->SetContent       (TEXT("Hello there, this is the Easy Email Plugin."));
     Email->SetContentCharset(EEmailCharset::utf_8);
     
     // Attachments
-    Email->AddFileAsAttachment(TEXT("MyLogo.png"), TEXT("C:/Users/Me/Logo.png"));                                     // Auto-detect MIME-Type
+    Email->AddFileAsAttachment(TEXT("MyLogo.png"),    TEXT("C:/Users/Me/Logo.png"));                                        // Auto-detect MIME-Type
     Email->AddFileAsAttachment(TEXT("MyRawData.bin"), TEXT("C:/Users/Me/binary.bin"), TEXT("application/octet-stream")); // Explicit MIME-Type
     
     // Callbacks
     Email->OnEmailError.AddDynamic(this, &UMyClass::OnEmailError);
-    Email->OnEmailSent.AddDynamic(this, &UMyClass::OnEmailSent);
+    Email->OnEmailSent .AddDynamic(this, &UMyClass::OnEmailSent);
     
     // Finally send the email
     Email->Send();
