@@ -75,7 +75,7 @@ public:
     void SendEmail();
     
     UFUNCTION()
-    	void OnEmailError(const int32 ErrorCode)
+    void OnEmailError(const int32 ErrorCode)
     {
         // If the email failed to send, additional Error / Warning are available
         // in the output log.
