@@ -1,10 +1,11 @@
 # Easy Email - Quick start.
 |Table of content|
 |:---:|
-|[Before you start](#markdown-header-before-you-start)|
-|[Blueprint Examples](#markdown-header-blueprint-examples)|
+|[Before you start](#before-you-start)|
+|[Blueprint Examples](#blueprint-examples)|
 |[C++ Examples](#markdown-header-c-examples)|
 # Before you start
+## Configuration
 Easy Email allows you to connect to an SMTP server to send emails. You must use the server corresponding to the email address you want to use to send the email.
 Here is a list of common SMTP servers:
 |Mail extension|Server Type|Server Address|Security|Port|Requires Authentification|
@@ -22,5 +23,21 @@ Here is a list of common SMTP servers:
 | :exclamation: | Some SMTP server requires you to enable less secure apps to successfully connect.  |
 |:--|:--|
 
+## C++
+### Includes
+Easy Email has two files to include.
+```cpp
+#include "Email.h"        // Contains the UEmail class. 
+#include "EmailLibrary.h" // Not required to send emails.
+```
+`Email.h` contains everything we need to send emails and `EmailLibrary.h` contains a few helper functions that you shouldn't need. They are used internally by `Email.h` for you but are available if needed.
+### Functions
+The functions are the same for Blueprints and C++. C++ however doesn't have the helper nodes that are Blueprints only.
+
+## Additional notes
+
+
+
 # Blueprint Examples
 ## Send an email with a Gmail account
+# C++ Examples
