@@ -21,7 +21,7 @@ Here is a list of common SMTP servers:
 | :information_source: |  Gmail supports both SSL/TLS and StartTLS. You can just pick one of the two. |
 |:--|:--|
 
-| :warning: | Some SMTP servers require you to enable less secure apps to successfully connect.  |
+| :warning: | Some SMTP servers require you to enable less secure apps to successfully connect. For Gmail, it's [Here](https://myaccount.google.com/lesssecureapps).|
 |:--|:--|
 
 ## C++
@@ -103,7 +103,7 @@ void UMyClass::SendEmail()
     Email->SetServerAddress (TEXT("smtp.gmail.com"));
     Email->SetServerPort    (465);
     Email->SetConnectionType(ESmtpConnectionType::SSL);
-    Email->SetServerType    (ESmtpServerType    ::ESMTP);
+    Email->SetServerType    (ESmtpServerType::ESMTP);
     
     // Username is by default your account's email address
     // Note that storing your password in plain text is generally 
@@ -122,7 +122,7 @@ void UMyClass::SendEmail()
     Email->SetContentCharset(EEmailCharset::utf_8);
     
     // Attachments
-    Email->AddFileAsAttachment(TEXT("MyLogo.png"),    TEXT("C:/Users/Me/Logo.png"));                                     // Auto-detect MIME-Type
+    Email->AddFileAsAttachment(TEXT("MyLogo.png"),    TEXT("C:/Users/Me/Logo.png"));                                        // Auto-detect MIME-Type
     Email->AddFileAsAttachment(TEXT("MyRawData.bin"), TEXT("C:/Users/Me/binary.bin"), TEXT("application/octet-stream")); // Explicit MIME-Type
     
     // Callbacks
