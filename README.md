@@ -9,7 +9,7 @@
 ## Configuration
 Easy Email allows you to connect to an SMTP server to send emails. You must use the server corresponding to the email address you want to use to send the email.
 Here is a list of common SMTP servers:
-|Mail extension|Server Type|Server Address|Security|Port|Requires Authentication|
+|Email extension|Server Type|Server Address|Security|Port|Requires Authentication|
 |:---|:---:|---|---:|---:|:---:|
 |@gmail.com|ESMTP|smtp.gmail.com|SSL/TLS|465|Yes|
 |@gmail.com|ESMTP|smtp.gmail.com|StartTLS|587|Yes|
