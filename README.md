@@ -20,7 +20,7 @@ Here is a list of common SMTP servers:
 | :information_source: |  Gmail supports both SSL/TLS and StartTLS. You can just pick one of the two. |
 |:--|:--|
 
-| :warning: | Some SMTP server requires you to enable less secure apps to successfully connect.  |
+| :warning: | Some SMTP servers require you to enable less secure apps to successfully connect.  |
 |:--|:--|
 
 ## C++
