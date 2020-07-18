@@ -1,3 +1,4 @@
+
 # [Easy Email](https://www.unrealengine.com/marketplace/en-US/product/easy-email) - Quick start.
 |Table of content|
 |:---:|
@@ -54,7 +55,9 @@ If you add an attachment as a file to an email, the file  is only loaded outside
 
 # Blueprint Example
 ## Send an email with a Gmail account
+Coming soon...
 
+## Send an email with a custom SMTP server
 Coming soon...
 
 # C++ Example
