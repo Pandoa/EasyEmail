@@ -59,7 +59,7 @@ Sending an email is really easy and straightforward with the helper nodes:
 ![Send email Gmail example](https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailGmail.png?raw=true)
 
 ## Send an email with a custom SMTP server
-Coming soon...
+![Send Email with Custom SMTP](https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailCustom.png?raw=true)
 
 # C++ Example
 ## Send an email with a Gmail account
