@@ -55,7 +55,8 @@ If you add an attachment as a file to an email, the file  is only loaded outside
 
 # Blueprint Example
 ## Send an email with a Gmail account
-Coming soon...
+Sending an email is really easy and straightforward with the helper nodes:
+![Send email Gmail example](https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailGmail.png?raw=true)
 
 ## Send an email with a custom SMTP server
 Coming soon...
