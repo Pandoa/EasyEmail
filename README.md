@@ -136,7 +136,7 @@ void UMyClass::SendEmail()
     Email->SetContentCharset(EEmailCharset::utf_8);
     
     // Attachments
-    Email->AddFileAsAttachment(TEXT("MyLogo.png"),    TEXT("C:/Users/Me/Logo.png"));                                        // Auto-detect MIME-Type
+    Email->AddFileAsAttachment(TEXT("MyLogo.png"),    TEXT("C:/Users/Me/Logo.png"));                                     // Auto-detect MIME-Type
     Email->AddFileAsAttachment(TEXT("MyRawData.bin"), TEXT("C:/Users/Me/binary.bin"), TEXT("application/octet-stream")); // Explicit MIME-Type
     
     // Callbacks
