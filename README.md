@@ -57,9 +57,6 @@ If you add an attachment as a file to an email, the file  is only loaded outside
 ### Send an email with a Gmail account
 Sending an email is really easy and straightforward with the helper nodes:
 
-![Send email Gmail example](https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailGmail.png?raw=true)
-| :warning: |  Helper nodes for common SMTP servers (Gmail, Yahoo, Outlook, Hotmail) are in a pending update waiting for approval in the Marketplace. |
-|:--|:--|
 ### Send an email with a custom SMTP server
 An helper node for custom SMTP servers exists too:
 
