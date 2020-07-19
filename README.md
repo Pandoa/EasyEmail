@@ -65,7 +65,7 @@ An helper node for custom SMTP servers exists too:
 
 ![Send Email with Custom SMTP](https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailCustom.png?raw=true)
 
-| :information_source: |  All helper nodes use `UTF-8` and `text/plain` for the content encoding. If you want to use another charset or MIME-Type, you can't use the helper node at the moment and have to customize your email as showed above. |
+| :information_source: |  All helper nodes use `UTF-8` and `text/plain` for the content encoding. If you want to use another charset or MIME-Type, you can't use the helper node at the moment and have to customize your email as showed below. |
 |:--|:--|
 ### Customized email
 If you need to customize the email, the same functionalities are offered for Blueprints and C++. However, it is longer and more complicated than the helper nodes:
