@@ -1,11 +1,11 @@
 
 # [Easy Email](https://www.unrealengine.com/marketplace/en-US/product/easy-email) - Quick start.
-|Table of content|
-|:---:|
-|[Before you start](#before-you-start)|
-|[Blueprint Example](#blueprint-example)|
-|[C++ Example](#c-example)|
-|[Support](#support)|
+![](https://cdn1.epicgames.com/ue/product/Screenshot/Slide1-1920x1080-02a6bda6ed5228b8f6cbb08f026af32b.PNG)
+## Table of content
+1. [Before you start](#before-you-start)
+2. [Blueprint Example](#blueprint-example)
+3. [C++ Example](#c-example)
+4. [Support](#support)
 ## Before you start
 ### Configuration
 Easy Email allows you to connect to an SMTP server to send emails. You must use the server corresponding to the email address you want to use to send the email.
