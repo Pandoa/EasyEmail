@@ -47,6 +47,7 @@ LogEasyEmail=VeryVerbose
 
 #### Passwords
 If the SMTP server requires authentication, you should not send passwords without using an encrypted connection (SSL/TLS or StartTLS). 
+
 | :information_source: |  Passwords aren't printed to logs. |
 |:--|:--|
 
