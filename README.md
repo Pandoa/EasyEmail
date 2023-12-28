@@ -152,5 +152,8 @@ This error happens because the SSL certificate is not included in the packaged v
 1. Copy the .pem certificate file to the location `<Project>/Content/Certificates/cacert.pem`.
 2. Add the certificate to the files to copy into the packaged build into `Settings` > `Packaging` > `Packaging` > `Additional Non-Assets Directories To Copy`.
 
+### Gmail - Invalid Password
+If your password is not accepted by Gmail, you need to setup an app paswword. Instructions can be found [here](https://support.google.com/mail/answer/185833?hl=en).
+
 ## Support
 If you need help, have a feature request or experience troubles, please contact us at [pandores.marketplace@gmail.com](mailto:pandores.marketplace+EasyEmail@gmail.com?subject=Easy%20Email%20-%20).
