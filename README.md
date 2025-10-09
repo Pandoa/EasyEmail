@@ -6,7 +6,7 @@
 2. [Blueprint Example](#blueprint-example)
 3. [C++ Example](#c-example)
 4. [Support](#support)
-## Before you start
+## Before you start 
 ### Configuration
 Easy Email allows you to connect to an SMTP server to send emails. You must use the server corresponding to the email address you want to use to send the email.
 Here is a list of common SMTP servers:
