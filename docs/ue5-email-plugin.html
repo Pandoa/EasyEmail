@@ -150,11 +150,11 @@ LogEasyEmail=VeryVerbose</code></pre>
             <h2>Blueprint Example</h2>
             <h3>Send an email with a Gmail account</h3>
             <p>Sending an email is really easy and straightforward with the helper nodes:</p>
-            <p><img src="https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailGmail.png?raw=true" alt="Send email Gmail example"></p>
+            <p><img src="https://raw.githubusercontent.com/Pandoa/EasyEmail/master/Images/SendEmailGmail.png" alt="Send email Gmail example"></p>
             
             <h3>Send an email with a custom SMTP server</h3>
             <p>An helper node for custom SMTP servers exists too:</p>
-            <p><img src="https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailCustom.png?raw=true" alt="Send Email with Custom SMTP"></p>
+            <p><img src="https://raw.githubusercontent.com/Pandoa/EasyEmail/master/Images/SendEmailCustom.png" alt="Send Email with Custom SMTP"></p>
 
             <div class="callout info">
                 <span class="callout-icon">ℹ️</span>
@@ -163,7 +163,7 @@ LogEasyEmail=VeryVerbose</code></pre>
 
             <h3>Customized email</h3>
             <p>If you need to customize the email, the same functionalities are offered for Blueprints and C++. However, it is longer and more complicated than the helper nodes:</p>
-            <p><img src="https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailWithoutHelper.png?raw=true" alt="Send Email Customized"></p>
+            <p><img src="https://raw.githubusercontent.com/Pandoa/EasyEmail/master/Images/SendEmailWithoutHelper.png" alt="Send Email Customized"></p>
         </section>
 
         <section id="c-example">
@@ -295,5 +295,30 @@ void UMyClass::SendEmail()
 
         hljs.highlightAll();
     </script>
+<script>
+  (function () {
+    const shouldLoadAnalytics =
+      window.puppeteer !== true &&
+      !navigator.webdriver &&
+      location.hostname !== 'localhost' &&
+      location.hostname !== '127.0.0.1';
+    if (!shouldLoadAnalytics) {
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https' + '://www.googl' + 'etagman' + 'ager.com/g' + 'tag/' + 'js' + '?' + 'id' + '=G-EGXMT0XTHL';
+    script.onload = function () {
+      gtag('config', 'G-EGXMT0XTHL');
+    };
+    document.head.appendChild(script);
+  })();
+</script>
 </body>
 </html>
