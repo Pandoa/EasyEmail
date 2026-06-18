@@ -157,3 +157,6 @@ If your password is not accepted by Gmail, you need to setup an app password. In
 
 ## Support
 If you need help, have a feature request or experience troubles, please contact us at [pandores.marketplace@gmail.com](mailto:pandores.marketplace+EasyEmail@gmail.com?subject=Easy%20Email%20-%20).
+
+# New Documentation
+You can also read the [new EasyEmail documentation for Unreal Engine](https://pandoa.github.io/EasyEmail/).
