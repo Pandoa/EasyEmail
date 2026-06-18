@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unreal Engine Outlook SMTP Setup - Send Emails with Easy Email Plugin</title>
+    <meta name="description" content="Quick start documentation for the Easy Email plugin for Unreal Engine. Learn how to connect to SMTP servers, configure SSL/TLS, and send emails using Blueprints or C++.">
+    <link rel="stylesheet" id="hljs-theme" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <style>
+        :root[data-theme="light"] { --bg-color: #f8f9fa; --sidebar-bg: #ffffff; --text-color: #212529; --text-muted: #6c757d; --primary-color: #0d6efd; --link-color: #0d6efd; --border-color: #dee2e6; --table-bg: #ffffff; --th-bg: #f1f3f5; --inline-code-bg: rgba(0, 0, 0, 0.05); --info-bg: #e2f8ff; --info-border: #0dcaf0; --info-text: #014351; --warning-bg: #fff3cd; --warning-border: #ffc107; --warning-text: #664d03; --shadow-color: rgba(0, 0, 0, 0.05); --btn-bg: #0d6efd; --btn-text: #ffffff; --btn-hover: #0b5ed7; } :root[data-theme="dark"] { --bg-color: #121212; --sidebar-bg: #1e1e1e; --text-color: #e0e0e0; --text-muted: #a0a0a0; --primary-color: #375a7f; --link-color: #6ea8fe; --border-color: #333333; --table-bg: #1e1e1e; --th-bg: #2d2d2d; --inline-code-bg: rgba(255, 255, 255, 0.1); --info-bg: #0b2930; --info-border: #0dcaf0; --info-text: #6edff6; --warning-bg: #2c2202; --warning-border: #ffc107; --warning-text: #ffda6a; --shadow-color: rgba(0, 0, 0, 0.3); --btn-bg: #6ea8fe; --btn-text: #121212; --btn-hover: #8bb9fe; } * { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: var(--text-color); background-color: var(--bg-color); line-height: 1.6; display: flex; transition: background-color 0.3s, color 0.3s; } .theme-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 1000; background-color: var(--sidebar-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 500; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 2px 8px var(--shadow-color); transition: background-color 0.3s, border-color 0.3s, color 0.3s; } .theme-toggle:hover { border-color: var(--link-color); } nav { position: fixed; top: 0; left: 0; width: 280px; height: 100vh; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 2rem 1.5rem; overflow-y: auto; transition: background-color 0.3s, border-color 0.3s; } nav h1 { font-size: 1.25rem; margin-bottom: 1.5rem; } nav h1 a { color: var(--text-color); text-decoration: none; } nav h1 a:hover { color: var(--link-color); } nav ul { list-style: none; } nav li { margin-bottom: 0.75rem; } nav a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; } nav a:hover { color: var(--link-color); } main { margin-left: 280px; max-width: 900px; width: calc(100% - 280px); padding: 3rem 4rem; } .doc-header { margin-bottom: 2rem; } .doc-header h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.05rem; margin-bottom: 0.75rem; } .doc-header h1 a { color: var(--text-color); } .doc-header h1 a:hover { color: var(--link-color); text-decoration: none; } .seo-lead { font-size: 1.15rem; color: var(--text-muted); max-width: 800px; line-height: 1.5; margin-bottom: 1.5rem; } .fab-button { display: inline-flex; align-items: center; gap: 0.5rem; background-color: var(--btn-bg); color: var(--btn-text) !important; padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 600; text-decoration: none !important; box-shadow: 0 2px 4px var(--shadow-color); transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s; } .fab-button:hover { background-color: var(--btn-hover); transform: translateY(-1px); box-shadow: 0 4px 8px var(--shadow-color); } .fab-button:active { transform: translateY(0); box-shadow: 0 2px 4px var(--shadow-color); } .hero-img { max-width: 100%; border-radius: 8px; margin-bottom: 2.5rem; box-shadow: 0 4px 12px var(--shadow-color); } h2 { font-size: 1.75rem; margin-top: 3rem; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); } h3 { font-size: 1.35rem; margin-top: 2rem; margin-bottom: 1rem; } h4 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.75rem; } h5 { font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--text-muted); } p { margin-bottom: 1.25rem; } a { color: var(--link-color); text-decoration: none; transition: color 0.2s; } a:hover { text-decoration: underline; } table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--table-bg); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px var(--shadow-color); transition: background-color 0.3s; } th, td { padding: 0.75rem 1rem; border: 1px solid var(--border-color); text-align: left; transition: border-color 0.3s; } th { background-color: var(--th-bg); font-weight: 600; transition: background-color 0.3s; } pre { margin: 1.5rem 0; border-radius: 6px; overflow-x: auto; } code { font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.9rem; } :not(pre) > code { background-color: var(--inline-code-bg); padding: 0.2rem 0.4rem; border-radius: 4px; transition: background-color 0.3s; } p img { max-width: 100%; display: block; margin: 1.5rem auto; border: 1px solid var(--border-color); border-radius: 6px; box-shadow: 0 2px 8px var(--shadow-color); transition: border-color 0.3s; } .callout { display: flex; gap: 1rem; padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 6px; border-left: 5px solid; align-items: center; transition: background-color 0.3s, border-color 0.3s, color 0.3s; } .callout.info { background-color: var(--info-bg); border-color: var(--info-border); color: var(--info-text); } .callout.warning { background-color: var(--warning-bg); border-color: var(--warning-border); color: var(--warning-text); } .callout-icon { font-size: 1.25rem; flex-shrink: 0; } @media (max-width: 992px) { body { flex-direction: column; } .theme-toggle { top: 0.5rem; right: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem; } nav { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); padding: 1.5rem; } main { margin-left: 0; width: 100%; padding: 2rem 1.5rem; } }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle dark mode">
+        <span id="themeToggleIcon">☀️</span>
+        <span id="themeToggleText">Light Mode</span>
+    </button>
+
+    <nav>
+        <h1><a href="#">Easy Email</a></h1>
+        <ul>
+            <li><a href="#before-you-start">Before you start</a></li>
+            <li><a href="#blueprint-example">Blueprint Example</a></li>
+            <li><a href="#c-example">C++ Example</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#support">Support</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header class="doc-header">
+            <h1><a href="https://www.unrealengine.com/marketplace/en-US/product/easy-email" target="_blank">Easy Email Plugin - Outlook.com SMTP for Unreal Engine</a></h1>
+            <p class="seo-lead">Configure <strong>Outlook.com SMTP</strong> in your <strong>Unreal Engine</strong> project using the Easy Email plugin. This guide covers Outlook's <strong>SSL/TLS</strong> and <strong>StartTLS</strong> settings, authentication requirements, and implementation examples for <strong>Blueprints</strong> and <strong>C++</strong>.</p>
+            <a href="https://www.fab.com/listings/69ea238e-9907-4467-b715-6f1dfc5031b2" target="_blank" class="fab-button">
+                Download Easy Email
+            </a>
+        </header>
+
+        <img class="hero-img" src="https://cdn1.epicgames.com/ue/product/Screenshot/Slide1-1920x1080-02a6bda6ed5228b8f6cbb08f026af32b.PNG" alt="Easy Email Banner Presentation">
+
+        <section id="before-you-start">
+            <h2>Outlook.com SMTP Configuration for Unreal Engine</h2>
+            <h3>Configuration</h3>
+            <p>This guide covers <strong>Outlook.com SMTP</strong> setup with Easy Email. Outlook requires <strong>SSL/TLS</strong> on port 465 or <strong>StartTLS</strong> on port 587. You'll need to enable <strong>less secure app access</strong> or use an app password.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email extension</th>
+                        <th style="text-align: center;">Server Type</th>
+                        <th>Server Address</th>
+                        <th style="text-align: right;">Security</th>
+                        <th style="text-align: right;">Port</th>
+                        <th style="text-align: center;">Requires Authentication</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@gmail.com</td>
+                        <td style="text-align: center;">ESMTP</td>
+                        <td>smtp.gmail.com</td>
+                        <td style="text-align: right;">SSL/TLS</td>
+                        <td style="text-align: right;">465</td>
+                        <td style="text-align: center;">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>@gmail.com</td>
+                        <td style="text-align: center;">ESMTP</td>
+                        <td>smtp.gmail.com</td>
+                        <td style="text-align: right;">StartTLS</td>
+                        <td style="text-align: right;">587</td>
+                        <td style="text-align: center;">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>@yahoo.com</td>
+                        <td style="text-align: center;">ESMTP</td>
+                        <td>smtp.mail.yahoo.com</td>
+                        <td style="text-align: right;">SSL/TLS</td>
+                        <td style="text-align: right;">465</td>
+                        <td style="text-align: center;">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>@aol.com</td>
+                        <td style="text-align: center;">ESMTP</td>
+                        <td>smtp.aol.com</td>
+                        <td style="text-align: right;">SSL/TLS</td>
+                        <td style="text-align: right;">465</td>
+                        <td style="text-align: center;">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>@hotmail.com</td>
+                        <td style="text-align: center;">ESMTP</td>
+                        <td>smtp.live.com</td>
+                        <td style="text-align: right;">SSL/TLS</td>
+                        <td style="text-align: right;">465</td>
+                        <td style="text-align: center;">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>@outlook.com</td>
+                        <td style="text-align: center;">ESMTP</td>
+                        <td>smtp.live.com</td>
+                        <td style="text-align: right;">StartTLS</td>
+                        <td style="text-align: right;">587</td>
+                        <td style="text-align: center;">Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout info">
+                <span class="callout-icon">ℹ️</span>
+                <div>Gmail supports both SSL/TLS and StartTLS. You can just pick one of the two.</div>
+            </div>
+
+            <div class="callout warning">
+                <span class="callout-icon">⚠️</span>
+                <div>Some SMTP servers require you to enable less secure apps to successfully connect. For Gmail, it's <a href="https://myaccount.google.com/lesssecureapps" target="_blank">Here</a>.</div>
+            </div>
+
+            <h3>C++</h3>
+            <h4>Includes</h4>
+            <p>Easy Email has two files to include.</p>
+<pre><code class="language-cpp">#include "Email.h"
+#include "EmailLibrary.h"</code></pre>
+            <p><code>Email.h</code> contains everything we need to send emails and <code>EmailLibrary.h</code> contains a few helper functions that you shouldn't need. They are used internally by <code>Email.h</code> for you but are available if needed.</p>
+            
+            <h4>Functions</h4>
+            <p>The functions are the same for Blueprints and C++. C++ however doesn't have the helper nodes that are Blueprints only.</p>
+
+            <h3>Additional notes</h3>
+            <h4>Additional logging</h4>
+            <p>If you want additional logs, you have to enable <code>Verbose</code> and/or <code>VeryVerbose</code> logs.</p>
+            <p>To do so, open <code>MyGame/Config/DefaultEngine.ini</code> and add the following:</p>
+<pre><code class="language-ini">[Core.Log]
+LogEasyEmail=VeryVerbose</code></pre>
+
+            <h4>Passwords</h4>
+            <p>If the SMTP server requires authentication, you should not send passwords without using an encrypted connection (SSL/TLS or StartTLS).</p>
+
+            <div class="callout info">
+                <span class="callout-icon">ℹ️</span>
+                <div>Passwords aren't printed to logs.</div>
+            </div>
+
+            <h4>Attachments</h4>
+            <p>If you add an attachment as a file to an email, the file is only loaded outside of the game thread just before sending the email and is then cached within the email. If you let the MIME-Type of the attachment empty, Easy Email will try to match the file's extension with its default MIME-Type and use <code>application/octet-stream</code> if none is found or the extension is unknown.</p>
+        </section>
+
+        <section id="blueprint-example">
+            <h2>Blueprint Example</h2>
+            <h3>Send an email with a Gmail account</h3>
+            <p>Sending an email is really easy and straightforward with the helper nodes:</p>
+            <p><img src="https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailGmail.png?raw=true" alt="Send email Gmail example"></p>
+            
+            <h3>Send an email with a custom SMTP server</h3>
+            <p>An helper node for custom SMTP servers exists too:</p>
+            <p><img src="https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailCustom.png?raw=true" alt="Send Email with Custom SMTP"></p>
+
+            <div class="callout info">
+                <span class="callout-icon">ℹ️</span>
+                <div>All helper nodes use <code>UTF-8</code> and <code>text/plain</code> for the content encoding. If you want to use another charset or MIME-Type, you can't use the helper node at the moment and have to customize your email as shown below.</div>
+            </div>
+
+            <h3>Customized email</h3>
+            <p>If you need to customize the email, the same functionalities are offered for Blueprints and C++. However, it is longer and more complicated than the helper nodes:</p>
+            <p><img src="https://github.com/Pandoa/EasyEmail/blob/master/Images/SendEmailWithoutHelper.png?raw=true" alt="Send Email Customized"></p>
+        </section>
+
+        <section id="c-example">
+            <h2>C++ Example</h2>
+            <h3>Send an email with a Gmail account</h3>
+            <h5>MyClass.h</h5>
+<pre><code class="language-cpp">#pragma once
+
+#include "Email.h"
+#include "CoreMinimal.h"
+#include "MyClass.generated.h"
+
+UCLASS()
+class UMyClass : public UObject
+{
+    GENERATED_BODY()
+public:
+    void SendEmail();
+    
+    UFUNCTION()
+    void OnEmailError(const int32 ErrorCode)
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to send email. Code: %d."), ErrorCode);
+    }
+    UFUNCTION()
+    void OnEmailSent()
+    {
+        UE_LOG(LogTemp, Log, TEXT("Email sent."));
+    }
+private:
+    UPROPERTY()
+    UEmail* Email;
+};</code></pre>
+
+            <h5>MyClass.cpp</h5>
+<pre><code class="language-cpp">#include "MyClass.h"
+
+void UMyClass::SendEmail()
+{
+    Email = UEmail::CreateEmail();
+    
+    Email->SetServerAddress (TEXT("smtp.gmail.com"));
+    Email->SetServerPort    (465);
+    Email->SetConnectionType(ESmtpConnectionType::SSL);
+    Email->SetServerType    (ESmtpServerType::ESMTP);
+    
+    Email->SetCredentials(TEXT("MyUsername"), TEXT("MyPassword"));
+    
+    Email->SetSender         (TEXT("myemail@gmail.com"));
+    Email->AddReceiver       (TEXT("target@gmail.com"));
+    Email->AddBlindCopyCarbon(TEXT("bcc@gmail.com"));
+    Email->AddCopyCarbon     (TEXT("cc@gmail.com"));
+    
+    Email->SetSubject       (TEXT("Hello From Unreal"));
+    Email->SetContent       (TEXT("Hello there, this is the Easy Email Plugin."));
+    Email->SetContentCharset(EEmailCharset::utf_8);
+    
+    Email->AddFileAsAttachment(TEXT("MyLogo.png"),    TEXT("C:/Users/Me/Logo.png"));
+    Email->AddFileAsAttachment(TEXT("MyRawData.bin"), TEXT("C:/Users/Me/binary.bin"), TEXT("application/octet-stream"));
+    
+    Email->OnEmailError.AddDynamic(this, &UMyClass::OnEmailError);
+    Email->OnEmailSent .AddDynamic(this, &UMyClass::OnEmailSent);
+    
+    Email->Send();
+}</code></pre>
+        </section>
+
+        <section id="troubleshooting">
+            <h2>Troubleshooting</h2>
+            <h3>Failed to connect: <code>SSL error: unable to get local issuer certificate</code></h3>
+            <p>This error happens because the SSL certificate is not included in the packaged version of your game. To add the certificate to the packaged version, you need to do the following:</p>
+            <ol style="margin-left: 1.5rem; margin-bottom: 1.25rem;">
+                <li>Copy the <code>.pem</code> certificate file to the location <code>&lt;Project&gt;/Content/Certificates/cacert.pem</code>.</li>
+                <li>Add the certificate to the files to copy into the packaged build into <code>Settings</code> &gt; <code>Packaging</code> &gt; <code>Packaging</code> &gt; <code>Additional Non-Assets Directories To Copy</code>.</li>
+            </ol>
+
+            <h3>Gmail - Invalid Password</h3>
+            <p>If your password is not accepted by Gmail, you need to setup an app password. Instructions can be found <a href="https://support.google.com/mail/answer/185833?hl=en" target="_blank">here</a>.</p>
+        </section>
+
+        <section id="support">
+            <h2>Support</h2>
+            <p>If you need help, have a feature request or experience troubles, please contact us at <a href="mailto:pandores.marketplace+EasyEmail@gmail.com?subject=Easy%20Email%20-%20">pandores.marketplace@gmail.com</a>.</p>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        const root = document.documentElement;
+        const hljsTheme = document.getElementById('hljs-theme');
+        const toggleBtn = document.getElementById('themeToggleBtn');
+        const toggleIcon = document.getElementById('themeToggleIcon');
+        const toggleText = document.getElementById('themeToggleText');
+
+        const lightHljs = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css";
+        const darkHljs = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css";
+
+        function setTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'dark') {
+                hljsTheme.href = darkHljs;
+                toggleIcon.textContent = "🌙";
+                toggleText.textContent = "Dark Mode";
+            } else {
+                hljsTheme.href = lightHljs;
+                toggleIcon.textContent = "☀️";
+                toggleText.textContent = "Light Mode";
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (systemPrefersDark) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
